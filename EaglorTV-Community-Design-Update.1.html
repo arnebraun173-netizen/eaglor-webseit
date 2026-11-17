@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EaglorTV Community – Offizielle Plattform</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        discord: {
+                            dark: '#1e1f22',
+                            darker: '#111214',
+                            card: '#2b2d31',
+                            hover: '#35373c',
+                            blurple: '#5865F2',
+                            blurpleHover: '#4752C4',
+                            gold: '#f5b041',
+                            goldDark: '#d68910',
+                            green: '#23a55a',
+                            red: '#da373c'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #111214;
+            color: #f2f3f5;
+            overflow-x: hidden;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e1f22;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #35373c;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4e5058;
+        }
+        .gold-glow {
+            box-shadow: 0 0 20px rgba(245, 176, 65, 0.18);
+        }
+        .blurple-glow {
+            box-shadow: 0 0 20px rgba(88, 101, 242, 0.25);
+        }
+
+        /* ===== EaglorTV visual refresh ===== */
+        :root { color-scheme: dark; }
+        body {
+            background:
+              radial-gradient(ellipse at 78% -12%, rgba(88,101,242,.18), transparent 34%),
+              radial-gradient(ellipse at 12% 18%, rgba(245,176,65,.09), transparent 30%),
+              #0b0d12;
+            color: #f5f6fa;
+        }
+        body::before {
+            content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+            opacity: .16;
+            background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: linear-gradient(to bottom, black, transparent 78%);
+        }
+        #sidebar {
+            background: rgba(15,17,24,.94) !important;
+            border-right: 1px solid rgba(255,255,255,.09) !important;
+            box-shadow: 18px 0 55px rgba(0,0,0,.22);
+            backdrop-filter: blur(22px);
+        }
+        #sidebar > div:first-child > div:first-child { background: linear-gradient(135deg,rgba(255,255,255,.045),transparent); }
+        #navLinks { padding: 18px 13px !important; }
+        .nav-btn {
+            min-height: 44px;
+            border: 1px solid transparent !important;
+            transition: background .2s ease, border-color .2s ease, transform .2s ease !important;
+        }
+        .nav-btn:hover { transform: translateX(3px); background: rgba(255,255,255,.065) !important; }
+        .nav-btn.bg-discord-blurple { background: linear-gradient(110deg,#5865f2,#414fc8) !important; box-shadow: 0 8px 24px rgba(88,101,242,.25); }
+        main { position: relative; }
+        .page-section { animation: pageEnter .35s ease both; }
+        @keyframes pageEnter { from { opacity:0; transform:translateY(9px); } to { opacity:1; transform:translateY(0); } }
+        #page-start > div:first-child {
+            background: linear-gradient(125deg,rgba(36,39,52,.97),rgba(18,21,31,.97) 58%,rgba(44,38,28,.88)) !important;
+            border: 1px solid rgba(245,176,65,.27) !important;
+            box-shadow: 0 25px 80px rgba(0,0,0,.3), inset 0 1px rgba(255,255,255,.07) !important;
+        }
+        #page-start > div:first-child::after {
+            content:""; position:absolute; width:320px; height:320px; right:-110px; top:-160px;
+            border:1px solid rgba(245,176,65,.15); border-radius:50%;
+            box-shadow:0 0 0 35px rgba(245,176,65,.025),0 0 0 75px rgba(245,176,65,.018);
+            pointer-events:none;
+        }
+        #page-start > div:first-child img { filter: drop-shadow(0 12px 30px rgba(245,176,65,.16)); }
+        #page-start .grid > div, .page-section .bg-discord-card, .page-section [class*="rounded-2xl"][class*="border"] {
+            box-shadow: 0 12px 34px rgba(0,0,0,.14);
+        }
+        #page-start .grid > div {
+            background: linear-gradient(145deg,rgba(39,42,51,.94),rgba(24,26,33,.94)) !important;
+            border: 1px solid rgba(255,255,255,.085) !important;
+            transition: transform .22s ease,border-color .22s ease,box-shadow .22s ease;
+        }
+        #page-start .grid > div:hover { transform:translateY(-5px); border-color:rgba(245,176,65,.34) !important; box-shadow:0 18px 42px rgba(0,0,0,.26); }
+        button:not(.nav-btn), a[class*="rounded-"] { transition: transform .18s ease,filter .18s ease,box-shadow .18s ease; }
+        button:not(.nav-btn):hover { filter:brightness(1.08); }
+        button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible { outline:2px solid #f5b041; outline-offset:3px; }
+        input, textarea, select {
+            background-color:rgba(12,14,20,.82) !important;
+            border:1px solid rgba(255,255,255,.13) !important;
+            border-radius:12px !important;
+            color:#f5f6fa !important;
+        }
+        input:focus, textarea:focus, select:focus { border-color:rgba(245,176,65,.65) !important; box-shadow:0 0 0 3px rgba(245,176,65,.10) !important; outline:none; }
+        #toastContainer > div { box-shadow:0 18px 45px rgba(0,0,0,.38); }
+        #mobileMenuBtn { border:1px solid rgba(255,255,255,.12); }
+        header.md\:hidden { background:rgba(15,17,24,.94) !important; backdrop-filter:blur(18px); }
+        /* Chat and account panels */
+        #page-chat { min-height:calc(100vh - 40px); }
+        #page-chat [class*="bg-discord-card"] { background-color:rgba(31,34,43,.92) !important; }
+        #page-chat [class*="border-white"] { border-color:rgba(255,255,255,.085) !important; }
+        #page-chat button { border-radius:11px; }
+        #page-chat input, #page-chat textarea { background:rgba(10,12,18,.9) !important; }
+        #kontoModal, [id*="Modal"] { backdrop-filter:blur(12px); }
+        ::selection { background:rgba(245,176,65,.35); color:white; }
+        @media (max-width:767px) {
+            #page-start > div:first-child { padding:26px 20px !important; }
+            .page-section { padding:22px 16px !important; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.01ms !important; }
+        }
+
+    </style>
+</head>
+<body class="min-h-screen flex flex-col md:flex-row font-sans antialiased selection:bg-discord-gold selection:text-black">
+
+    <!-- Mobile Top Header -->
+    <header class="md:hidden bg-discord-dark border-b border-white/10 px-4 py-3 flex items-center justify-between sticky top-0 z-30">
+        <div class="flex items-center gap-3">
+            <img id="mobileLogo" alt="EaglorTV Logo" class="w-[34px] h-[34px] object-contain">
+            <span class="font-extrabold text-lg tracking-tight text-white">Eaglor<span class="text-discord-gold">TV</span></span>
+        </div>
+        <button id="mobileMenuBtn" class="p-2 rounded-lg bg-discord-card text-gray-200 hover:bg-discord-hover focus:outline-none" aria-label="Menü öffnen">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </header>
+
+    <!-- Sidebar Backdrop (Mobile) -->
+    <div id="sidebarBackdrop" class="fixed inset-0 bg-black/60 z-30 hidden md:hidden backdrop-blur-sm"></div>
+
+    <!-- Seitenmenü (Navigation) -->
+    <aside id="sidebar" class="fixed md:sticky top-0 left-0 h-screen w-72 bg-discord-dark border-r border-white/10 flex flex-col justify-between z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out">
+        <div>
+            <!-- Branding Header -->
+            <div class="p-5 border-b border-white/10 flex items-center gap-3.5">
+                <img id="sidebarLogo" alt="EaglorTV Emblem" class="w-[34px] h-[34px] object-contain shrink-0">
+                <div>
+                    <h1 class="font-extrabold text-xl tracking-tight text-white leading-none">Eaglor<span class="text-discord-gold">TV</span></h1>
+                    <p class="text-xs text-gray-400 mt-1 font-medium">Offizielle Community</p>
+                </div>
+            </div>
+
+            <!-- Navigationslinks -->
+            <nav class="p-3 space-y-1 overflow-y-auto max-h-[calc(100vh-190px)]" id="navLinks">
+                <button data-page="start" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold bg-discord-blurple text-white transition">
+                    <span>🏠</span> Start
+                </button>
+                <button data-page="about" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-gray-300 hover:bg-discord-hover hover:text-white transition">
+                    <span>ℹ️</span> Über uns
+                </button>
+                <button data-page="areas" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-gray-300 hover:bg-discord-hover hover:text-white transition">
+                    <span>✨</span> Bereiche
+                </button>
+                <button data-page="channels" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-gray-300 hover:bg-discord-hover hover:text-white transition">
+                    <span>💬</span> Kanäle
+                </button>
+                <button data-page="safety" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-gray-300 hover:bg-discord-hover hover:text-white transition">
+                    <span>🛡️</span> Sicherheit
+                </button>
+                <button data-page="support" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-gray-300 hover:bg-discord-hover hover:text-white transition">
+                    <span>🛟</span> Support
+                </button>
+                <button data-page="follow" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-gray-300 hover:bg-discord-hover hover:text-white transition">
+                    <span>📺</span> Folgen
+                </button>
+
+                <!-- Chat-Reiter (Nur sichtbar wenn eingeloggt) -->
+                <div id="chatNavWrapper" class="hidden pt-3 mt-3 border-t border-white/10">
+                    <p class="px-3.5 text-[11px] font-bold uppercase tracking-wider text-discord-gold mb-1.5">Live Community</p>
+                    <button data-page="chat" id="chatNavBtn" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-discord-blurple/80 to-indigo-600/80 hover:from-discord-blurple hover:to-indigo-600 border border-indigo-400/30 transition shadow-md">
+                        <span class="flex items-center gap-2.5"><span>💬</span> Chat</span>
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Status-Box unten in der Sidebar -->
+        <div class="p-4 border-t border-white/10 bg-discord-darker/60">
+            <div id="sidebarUserStatus" class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-discord-card flex items-center justify-center text-sm border border-white/10">👤</div>
+                <div class="min-w-0 flex-1">
+                    <p class="text-xs font-semibold text-gray-300 truncate">Nicht angemeldet</p>
+                    <p class="text-[11px] text-gray-500 truncate">Klicke unten rechts auf Konto</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Hauptbereich -->
+    <main class="flex-1 min-w-0 pb-24">
+        <!-- Toast / Benachrichtigungsbanner -->
+        <div id="toastContainer" class="fixed top-4 right-4 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+        <!-- PAGE: START -->
+        <section id="page-start" class="page-section p-5 sm:p-8 lg:p-10 max-w-6xl mx-auto space-y-8">
+            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-discord-card via-discord-dark to-[#1b1e2b] border border-discord-gold/30 p-6 sm:p-10 gold-glow">
+                <div class="flex flex-col lg:flex-row items-center gap-8">
+                    <img id="heroLogo" alt="EaglorTV Hero Emblem" class="w-[150px] h-auto object-contain shrink-0">
+                    <div class="text-center lg:text-left space-y-4">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-discord-gold/15 border border-discord-gold/40 text-discord-gold text-xs font-bold uppercase tracking-wider">
+                            <span>🦅</span> Offizieller Community-Hub
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+                            Willkommen bei <span class="text-discord-gold">EaglorTV</span>!
+                        </h2>
+                        <p class="text-gray-300 text-base sm:text-lg max-w-2xl leading-relaxed">
+                            Deine zentrale Anlaufstelle für Streams, Gaming-Turniere, Community-Talks und exklusive Ankündigungen. Melde dich über den Konto-Reiter an, um direkt am Live-Chat teilzunehmen!
+                        </p>
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
+                            <button onclick="openKontoModal()" class="px-5 py-3 rounded-xl bg-discord-gold hover:bg-discord-goldDark text-black font-bold text-sm transition shadow-lg flex items-center gap-2">
+                                <span>👤</span> Jetzt anmelden & chatten
+                            </button>
+                            <button onclick="switchPage('channels')" class="px-5 py-3 rounded-xl bg-discord-card hover:bg-discord-hover text-white font-semibold text-sm border border-white/10 transition">
+                                Kanäle entdecken →
+                            </button>
+                            <!-- Twitch & TikTok Logo-Links im Hero-Bereich -->
+                            <div class="flex items-center gap-2.5 pl-1">
+                                <a href="https://www.twitch.tv/eaglortv" target="_blank" rel="noopener noreferrer" aria-label="EaglorTV auf Twitch" title="Twitch: @eaglortv" class="w-11 h-11 rounded-xl bg-[#9146FF] hover:bg-[#772ce8] text-white flex items-center justify-center shadow-lg transition transform hover:scale-105">
+                                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
+                                    </svg>
+                                </a>
+                                <a href="https://www.tiktok.com/@eaglor_" target="_blank" rel="noopener noreferrer" aria-label="Eaglor auf TikTok" title="TikTok: @eaglor_" class="w-11 h-11 rounded-xl bg-black hover:bg-neutral-900 text-white border border-white/20 hover:border-[#25F4EE] flex items-center justify-center shadow-lg transition transform hover:scale-105">
+                                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Schnellübersicht Karten -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div class="bg-discord-card/80 border border-white/10 rounded-2xl p-6 hover:border-discord-gold/40 transition">
+                    <div class="w-11 h-11 rounded-xl bg-discord-gold/15 text-discord-gold flex items-center justify-center text-xl mb-4">📢</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Englische Announcements</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Alle offiziellen Server-News und Stream-Updates werden im exklusiven <span class="text-discord-gold font-semibold">#announcements</span>-Kanal vom Owner gepostet.</p>
+                </div>
+                <div class="bg-discord-card/80 border border-white/10 rounded-2xl p-6 hover:border-discord-blurple/50 transition">
+                    <div class="w-11 h-11 rounded-xl bg-discord-blurple/20 text-indigo-400 flex items-center justify-center text-xl mb-4">💬</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Aktiver Live-Chat</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Tausche dich nach dem Login in <span class="text-indigo-300 font-semibold">#general-chat</span> und <span class="text-indigo-300 font-semibold">#help-chat</span> mit anderen Mitgliedern aus.</p>
+                </div>
+                <div class="bg-discord-card/80 border border-white/10 rounded-2xl p-6 hover:border-emerald-500/40 transition">
+                    <div class="w-11 h-11 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-xl mb-4">👑</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Owner-Moderation</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Transparente Moderation mit direkter Nachrichtenverwaltung und Timeout-System für ein faires Miteinander.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE: ÜBER UNS -->
+        <section id="page-about" class="page-section hidden p-5 sm:p-8 lg:p-10 max-w-5xl mx-auto space-y-6">
+            <div class="bg-discord-card border border-white/10 rounded-3xl p-6 sm:p-8 space-y-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-discord-gold">Unsere Vision</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Über die EaglorTV Community</h2>
+                <p class="text-gray-300 leading-relaxed">
+                    EaglorTV steht für hochwertige Unterhaltung, faires Gaming und eine respektvolle Gemeinschaft. Was als kleiner Livestream-Treffpunkt begann, hat sich zu einer vielseitigen Plattform entwickelt, auf der Zuschauer und Creator direkt miteinander interagieren.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                    <div class="p-4 rounded-2xl bg-discord-dark border border-white/5">
+                        <h4 class="font-bold text-white mb-1">🎯 Unsere Mission</h4>
+                        <p class="text-sm text-gray-400">Einen sicheren, freundlichen Ort schaffen, an dem jeder willkommen ist – egal ob Gelegenheitsspieler oder Stammzuschauer.</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-discord-dark border border-white/5">
+                        <h4 class="font-bold text-white mb-1">🤝 Gemeinschaft zuerst</h4>
+                        <p class="text-sm text-gray-400">Regelmäßige Community-Abende, Umfragen und direkte Mitsprache bei neuen Formaten.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE: BEREICHE -->
+        <section id="page-areas" class="page-section hidden p-5 sm:p-8 lg:p-10 max-w-5xl mx-auto space-y-6">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">🎮 Bereiche & Events</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="bg-discord-card border border-white/10 rounded-2xl p-6 space-y-2">
+                    <span class="text-2xl">🏆</span>
+                    <h3 class="text-lg font-bold text-white">Community-Turniere</h3>
+                    <p class="text-sm text-gray-400">Monatliche Matches in beliebten Multiplayer-Titeln mit Ruhmeshalle und besonderen Rollen.</p>
+                </div>
+                <div class="bg-discord-card border border-white/10 rounded-2xl p-6 space-y-2">
+                    <span class="text-2xl">🎬</span>
+                    <h3 class="text-lg font-bold text-white">Watch-Parties & Streams</h3>
+                    <p class="text-sm text-gray-400">Gemeinsames Mitfiebern bei großen Events und interaktive Livestream-Sessions.</p>
+                </div>
+                <div class="bg-discord-card border border-white/10 rounded-2xl p-6 space-y-2">
+                    <span class="text-2xl">🎨</span>
+                    <h3 class="text-lg font-bold text-white">Kreativ-Ecke & Clips</h3>
+                    <p class="text-sm text-gray-400">Teile deine besten Stream-Highlights, Fan-Arts und Setups mit der gesamten Community.</p>
+                </div>
+                <div class="bg-discord-card border border-white/10 rounded-2xl p-6 space-y-2">
+                    <span class="text-2xl">🎙️</span>
+                    <h3 class="text-lg font-bold text-white">Talk-Runden & Q&A</h3>
+                    <p class="text-sm text-gray-400">Direkter Austausch mit dem EaglorTV-Team über kommende Projekte und Ideen.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE: KANÄLE -->
+        <section id="page-channels" class="page-section hidden p-5 sm:p-8 lg:p-10 max-w-5xl mx-auto space-y-6">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">#️⃣ Kanäle & Serverstruktur</h2>
+            <div class="space-y-4">
+                <div class="bg-discord-card border border-discord-gold/30 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-discord-gold text-lg">#announcements</span>
+                            <span class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-discord-gold/20 text-discord-gold">English • Owner Only</span>
+                        </div>
+                        <p class="text-sm text-gray-300 mt-1">Official server announcements, stream schedules, and important updates posted exclusively by the Owner.</p>
+                    </div>
+                    <button onclick="goToChannel('announcements')" class="px-4 py-2 rounded-xl bg-discord-dark hover:bg-discord-hover text-sm font-semibold text-white border border-white/10 shrink-0">Öffnen</button>
+                </div>
+
+                <div class="bg-discord-card border border-white/10 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-indigo-400 text-lg">#general-chat</span>
+                            <span class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-indigo-500/20 text-indigo-300">Alle Mitglieder</span>
+                        </div>
+                        <p class="text-sm text-gray-300 mt-1">Der Haupttreffpunkt für tägliche Gespräche, Gaming-Verabredungen und Community-Talk.</p>
+                    </div>
+                    <button onclick="goToChannel('general-chat')" class="px-4 py-2 rounded-xl bg-discord-dark hover:bg-discord-hover text-sm font-semibold text-white border border-white/10 shrink-0">Öffnen</button>
+                </div>
+
+                <div class="bg-discord-card border border-white/10 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-emerald-400 text-lg">#help-chat</span>
+                            <span class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-emerald-500/20 text-emerald-300">Hilfe & Fragen</span>
+                        </div>
+                        <p class="text-sm text-gray-300 mt-1">Schnelle Hilfe bei Fragen rund um die Plattform, Rollen oder Events.</p>
+                    </div>
+                    <button onclick="goToChannel('help-chat')" class="px-4 py-2 rounded-xl bg-discord-dark hover:bg-discord-hover text-sm font-semibold text-white border border-white/10 shrink-0">Öffnen</button>
+                </div>
+
+                <!-- #social-media Kanal mit klickbaren Twitch & TikTok Logos -->
+                <div class="bg-discord-card border border-purple-500/30 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-purple-400 text-lg">#social-media</span>
+                            <span class="px-2 py-0.5 text-[11px] font-bold rounded-full bg-purple-500/20 text-purple-300">Offizielle Links</span>
+                        </div>
+                        <p class="text-sm text-gray-300 mt-1">Alle Livestreams, Clips und Social-Media-Kanäle von EaglorTV auf einen Blick.</p>
+                    </div>
+                    <div class="flex items-center gap-3 shrink-0">
+                        <a href="https://www.twitch.tv/eaglortv" target="_blank" rel="noopener noreferrer" aria-label="EaglorTV auf Twitch" title="Twitch öffnen" class="w-11 h-11 rounded-xl bg-[#9146FF] hover:bg-[#772ce8] text-white flex items-center justify-center shadow-md transition transform hover:scale-105">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.tiktok.com/@eaglor_" target="_blank" rel="noopener noreferrer" aria-label="Eaglor auf TikTok" title="TikTok öffnen" class="w-11 h-11 rounded-xl bg-black hover:bg-neutral-900 text-white border border-white/20 hover:border-[#25F4EE] flex items-center justify-center shadow-md transition transform hover:scale-105">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE: SICHERHEIT (Originalinhalt #t-sicher) -->
+        <section id="page-safety" class="page-section hidden p-5 sm:p-8 lg:p-10 max-w-5xl mx-auto space-y-6">
+            <div class="bg-discord-card border border-white/10 rounded-3xl p-6 sm:p-8 space-y-4">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Sicher &amp; fair</h2>
+                <p class="text-gray-300 text-base sm:text-lg leading-relaxed">
+                    Wir wollen, dass sich hier jeder wohlfühlt. Deshalb schützen mehrere Bots den Server: eine E-Mail-Verifizierung gegen Fake-Accounts, ein Anti-Raid-Schutz gegen Massen-Beitritte und ein Ticket-System, über das du dich jederzeit ans Team wenden kannst.
+                </p>
+            </div>
+        </section>
+
+        <!-- PAGE: SUPPORT (Originalinhalt #t-support) -->
+        <section id="page-support" class="page-section hidden p-5 sm:p-8 lg:p-10 max-w-5xl mx-auto space-y-6">
+            <div class="bg-discord-card border border-white/10 rounded-3xl p-6 sm:p-8 space-y-6">
+                <div class="space-y-2">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Support-Chat</h2>
+                    <p class="text-gray-300 text-base sm:text-lg leading-relaxed">
+                        Du brauchst Hilfe oder hast eine Frage? Unser Team ist auf Discord für dich da.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-discord-dark border border-white/10 rounded-2xl p-5 space-y-2">
+                        <div class="text-2xl">🛟</div>
+                        <h3 class="text-lg font-bold text-white">Help Chat</h3>
+                        <p class="text-sm text-gray-300 leading-relaxed">Stell deine Frage im Kanal <b class="text-white">Help Chat</b>. Mods und Community helfen dir weiter.</p>
+                    </div>
+                    <div class="bg-discord-dark border border-white/10 rounded-2xl p-5 space-y-2">
+                        <div class="text-2xl">🎫</div>
+                        <h3 class="text-lg font-bold text-white">Ticket-System</h3>
+                        <p class="text-sm text-gray-300 leading-relaxed">Für private Anliegen: Öffne ein Ticket und schreibe direkt mit dem Team.</p>
+                    </div>
+                    <div class="bg-discord-dark border border-white/10 rounded-2xl p-5 space-y-2">
+                        <div class="text-2xl">🌍</div>
+                        <h3 class="text-lg font-bold text-white">Alle Sprachen</h3>
+                        <p class="text-sm text-gray-300 leading-relaxed">Der Übersetzer-Bot hilft, wenn ihr nicht dieselbe Sprache sprecht.</p>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <a
+                        href="https://discord.gg/V44GTQ6td"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-discord-blurple hover:bg-discord-blurpleHover text-white font-bold text-sm transition shadow-lg"
+                    >
+                        Support-Chat auf Discord öffnen
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE: FOLGEN -->
+        <section id="page-follow" class="page-section hidden p-5 sm:p-8 lg:p-10 max-w-5xl mx-auto space-y-6">
+            <div class="bg-discord-card border border-white/10 rounded-3xl p-6 sm:p-10 text-center space-y-6">
+                <div class="space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-wider text-discord-gold">Offizielle Kanäle</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">🔔 Folge EaglorTV</h2>
+                    <p class="text-sm sm:text-base text-gray-300 max-w-xl mx-auto">
+                        Klicke direkt auf das <strong class="text-[#a970ff]">Twitch-Logo</strong> oder das <strong class="text-[#25F4EE]">TikTok-Logo</strong>, um keinen Livestream und keinen Clip mehr zu verpassen!
+                    </p>
+                </div>
+
+                <!-- Große klickbare Twitch & TikTok Logos -->
+                <div class="flex items-center justify-center gap-6 sm:gap-8 py-4">
+                    <a href="https://www.twitch.tv/eaglortv" target="_blank" rel="noopener noreferrer" aria-label="EaglorTV auf Twitch folgen" title="Twitch: @eaglortv" class="group flex flex-col items-center gap-3 focus:outline-none">
+                        <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-[#9146FF] group-hover:bg-[#772ce8] text-white flex items-center justify-center shadow-2xl shadow-[#9146FF]/30 border-2 border-white/20 transition transform group-hover:-translate-y-1.5 group-hover:scale-105">
+                            <svg class="w-12 h-12 sm:w-14 sm:h-14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
+                            </svg>
+                        </div>
+                        <span class="text-xs font-bold text-gray-300 group-hover:text-white tracking-wide">@eaglortv</span>
+                    </a>
+
+                    <a href="https://www.tiktok.com/@eaglor_" target="_blank" rel="noopener noreferrer" aria-label="Eaglor auf TikTok folgen" title="TikTok: @eaglor_" class="group flex flex-col items-center gap-3 focus:outline-none">
+                        <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-black group-hover:bg-neutral-900 text-white flex items-center justify-center shadow-2xl border-2 border-white/20 group-hover:border-[#25F4EE] transition transform group-hover:-translate-y-1.5 group-hover:scale-105">
+                            <svg class="w-12 h-12 sm:w-14 sm:h-14 drop-shadow-[2px_2px_0px_#FE2C55]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                            </svg>
+                        </div>
+                        <span class="text-xs font-bold text-gray-300 group-hover:text-white tracking-wide">@eaglor_</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE: COMMUNITY CHAT -->
+        <section id="page-chat" class="page-section hidden p-3 sm:p-6 max-w-6xl mx-auto">
+            <div class="bg-discord-dark border border-white/10 rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row min-h-[76vh]">
+                
+                <!-- Kanal-Seitenleiste im Chat -->
+                <div class="lg:w-72 bg-discord-darker/90 border-b lg:border-b-0 lg:border-r border-white/10 p-4 flex flex-col justify-between gap-4">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 px-2">
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-gray-400">Textkanäle</span>
+                            <span id="chatRoleBadge" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-discord-card text-gray-300">Mitglied</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-1.5" id="channelButtons">
+                            <button data-channel="announcements" class="channel-btn flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-300 hover:bg-discord-hover transition text-left">
+                                <span class="flex items-center gap-2 truncate"><span class="text-discord-gold">📢</span> #announcements</span>
+                                <span class="text-[10px] px-1.5 py-0.5 rounded bg-discord-gold/20 text-discord-gold font-bold">EN</span>
+                            </button>
+                            <button data-channel="general-chat" class="channel-btn flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold bg-discord-hover text-white transition text-left">
+                                <span class="flex items-center gap-2 truncate"><span class="text-indigo-400">#</span> general-chat</span>
+                            </button>
+                            <button data-channel="help-chat" class="channel-btn flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-300 hover:bg-discord-hover transition text-left">
+                                <span class="flex items-center gap-2 truncate"><span class="text-emerald-400">#</span> help-chat</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Owner-Moderation Panel: Aktive Timeouts verwalten -->
+                    <div id="ownerModPanel" class="hidden bg-discord-card/80 border border-discord-gold/30 rounded-2xl p-3.5 space-y-2.5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-discord-gold flex items-center gap-1.5"><span>👑</span> Owner Moderation</span>
+                            <span id="timeoutCountBadge" class="text-[11px] px-2 py-0.5 rounded-full bg-red-500/20 text-red-300 font-bold">0 Timeouts</span>
+                        </div>
+                        <p class="text-[11px] text-gray-400 leading-snug">Klicke bei einer Nachricht auf <strong>⏳ Timeout</strong> oder <strong>🗑️ Löschen</strong>.</p>
+                        <div id="activeTimeoutsList" class="space-y-1.5 max-h-36 overflow-y-auto text-xs">
+                            <p class="text-gray-500 italic text-[11px]">Keine aktiven Timeouts.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Haupt-Chatfenster -->
+                <div class="flex-1 flex flex-col min-w-0 bg-discord-card/40">
+                    <!-- Kanal-Header -->
+                    <div class="px-5 py-4 border-b border-white/10 bg-discord-dark/70 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 id="activeChannelTitle" class="text-lg font-extrabold text-white"># general-chat</h3>
+                                <span id="activeChannelTag" class="hidden text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-discord-gold/20 text-discord-gold border border-discord-gold/30">Owner Only • English</span>
+                            </div>
+                            <p id="activeChannelDesc" class="text-xs text-gray-400 mt-0.5">Der Haupt-Chat für die EaglorTV-Community.</p>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-gray-400">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                            <span>Live verbunden</span>
+                        </div>
+                    </div>
+
+                    <!-- Timeout-Warnbanner für den aktuell eingeloggten Nutzer (falls getimeoutet) -->
+                    <div id="selfTimeoutBanner" class="hidden bg-red-950/80 border-b border-red-500/40 px-5 py-3 flex items-center justify-between gap-3">
+                        <div class="flex items-center gap-2.5 text-red-200 text-xs sm:text-sm font-medium">
+                            <span class="text-lg">⏳</span>
+                            <span>Du befindest dich aktuell in einem <strong>Timeout</strong> und kannst vorübergehend keine Nachrichten senden. Verbleibende Zeit: <strong id="selfTimeoutTimer" class="text-white font-mono">05:00</strong></span>
+                        </div>
+                    </div>
+
+                    <!-- Nachrichtenliste -->
+                    <div id="chatMessages" class="flex-1 p-4 sm:p-6 space-y-4 overflow-y-auto max-h-[54vh]">
+                        <!-- Nachrichten werden per JS gerendert -->
+                    </div>
+
+                    <!-- Eingabebereich -->
+                    <div class="p-4 border-t border-white/10 bg-discord-dark/80">
+                        <!-- Hinweis für normale Mitglieder in #announcements -->
+                        <div id="announcementsLockedNotice" class="hidden mb-2 px-4 py-2.5 rounded-xl bg-discord-gold/10 border border-discord-gold/30 text-discord-gold text-xs sm:text-sm font-semibold flex items-center gap-2">
+                            <span>🔒</span>
+                            <span>Only the Owner can send messages in #announcements.</span>
+                        </div>
+
+                        <form id="chatForm" class="flex items-center gap-2.5">
+                            <input
+                                type="text"
+                                id="chatInput"
+                                placeholder="Nachricht an #general-chat senden..."
+                                autocomplete="off"
+                                class="flex-1 bg-discord-card border border-white/10 focus:border-discord-blurple rounded-xl px-4 py-3 text-sm text-white placeholder-gray-400 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                            <button
+                                type="submit"
+                                id="chatSendBtn"
+                                class="px-5 py-3 rounded-xl bg-discord-blurple hover:bg-discord-blurpleHover disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-sm transition shrink-0 shadow-md"
+                            >
+                                Senden
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer mit Twitch & TikTok Logos -->
+        <footer class="mt-12 border-t border-white/10 bg-discord-dark/60 px-6 py-6">
+            <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-2.5 text-sm text-gray-400">
+                    <span class="font-bold text-white">Eaglor<span class="text-discord-gold">TV</span></span>
+                    <span>•</span>
+                    <span>Offizielle Community-Plattform</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a href="https://www.twitch.tv/eaglortv" target="_blank" rel="noopener noreferrer" aria-label="EaglorTV auf Twitch" title="Twitch: @eaglortv" class="w-10 h-10 rounded-xl bg-[#9146FF] hover:bg-[#772ce8] text-white flex items-center justify-center shadow transition transform hover:scale-105">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.tiktok.com/@eaglor_" target="_blank" rel="noopener noreferrer" aria-label="Eaglor auf TikTok" title="TikTok: @eaglor_" class="w-10 h-10 rounded-xl bg-black hover:bg-neutral-900 text-white border border-white/20 hover:border-[#25F4EE] flex items-center justify-center shadow transition transform hover:scale-105">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Fester Reiter unten rechts: 👤 Konto -->
+    <button
+        id="kontoFab"
+        onclick="openKontoModal()"
+        class="fixed bottom-5 right-5 z-40 flex items-center gap-2.5 px-5 py-3.5 rounded-2xl bg-discord-dark hover:bg-discord-card text-white font-bold text-sm border-2 border-discord-gold/60 shadow-2xl gold-glow transition transform hover:-translate-y-0.5 active:translate-y-0"
+    >
+        <span id="kontoFabAvatar" class="text-base">👤</span>
+        <span id="kontoFabLabel">Konto</span>
+    </button>
+
+    <!-- KONTO MODAL (Login-Auswahl & Profilverwaltung) -->
+    <div id="kontoModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
+        <div class="bg-discord-dark border border-white/15 rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl animate-fadeIn">
+            <!-- Modal Header -->
+            <div class="px-6 py-4 bg-discord-darker border-b border-white/10 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <span class="text-xl">👤</span>
+                    <h3 id="kontoModalTitle" class="text-lg font-extrabold text-white">Konto & Anmeldung</h3>
+                </div>
+                <button onclick="closeKontoModal()" class="w-8 h-8 rounded-lg bg-discord-card hover:bg-discord-hover text-gray-300 flex items-center justify-center font-bold">✕</button>
+            </div>
+
+            <!-- ANSICHT A: NICHT EINGELOGGT (2 Optionen: Normaler Login vs. Owner Login) -->
+            <div id="loggedOutView" class="p-6 space-y-5">
+                <p class="text-sm text-gray-300">Wähle aus, wie du dich bei der <strong class="text-white">EaglorTV Community</strong> anmelden möchtest:</p>
+
+                <!-- 2 Auswahl-Optionen -->
+                <div class="grid grid-cols-2 gap-3">
+                    <button
+                        type="button"
+                        id="selectNormalLoginBtn"
+                        onclick="switchLoginMode('member')"
+                        class="p-3.5 rounded-2xl border-2 border-discord-blurple bg-discord-blurple/15 text-left transition flex flex-col gap-1"
+                    >
+                        <span class="text-xl">👤</span>
+                        <span class="font-bold text-sm text-white">Normaler Login</span>
+                        <span class="text-[11px] text-gray-300">Mitglieds-Konto</span>
+                    </button>
+
+                    <button
+                        type="button"
+                        id="selectOwnerLoginBtn"
+                        onclick="switchLoginMode('owner')"
+                        class="p-3.5 rounded-2xl border-2 border-white/10 bg-discord-card/60 hover:border-discord-gold/50 text-left transition flex flex-col gap-1"
+                    >
+                        <span class="text-xl">👑</span>
+                        <span class="font-bold text-sm text-discord-gold">Owner Login</span>
+                        <span class="text-[11px] text-gray-300">Admin & Moderation</span>
+                    </button>
+                </div>
+
+                <!-- Formular: Normaler Login -->
+                <form id="normalLoginForm" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1.5">E-Mail-Adresse</label>
+                        <input
+                            type="email"
+                            id="normalEmailInput"
+                            required
+                            placeholder="dein.name@beispiel.de"
+                            class="w-full bg-discord-darker border border-white/10 focus:border-discord-blurple rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none"
+                        >
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1.5">Spitzname (Optional)</label>
+                        <input
+                            type="text"
+                            id="normalNicknameInput"
+                            placeholder="z. B. SkyGamer"
+                            class="w-full bg-discord-darker border border-white/10 focus:border-discord-blurple rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none"
+                        >
+                    </div>
+                    <button type="submit" class="w-full py-3.5 rounded-xl bg-discord-blurple hover:bg-discord-blurpleHover text-white font-bold text-sm transition shadow-lg">
+                        👤 Als Mitglied anmelden
+                    </button>
+                </form>
+
+                <!-- Formular: Owner Login -->
+                <form id="ownerLoginForm" class="hidden space-y-4">
+                    <div class="p-3 rounded-xl bg-discord-gold/10 border border-discord-gold/30 text-xs text-discord-gold">
+                        <strong>👑 Owner-Zugang:</strong> Ermöglicht das Schreiben in <code>#announcements</code>, Löschen von Nachrichten und Timeouten von Nutzern. Bitte gib deinen persönlichen Zugangscode ein.
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1.5">Owner E-Mail-Adresse</label>
+                        <input
+                            type="email"
+                            id="ownerEmailInput"
+                            required
+                            placeholder="owner@eaglortv.de"
+                            class="w-full bg-discord-darker border border-white/10 focus:border-discord-gold rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none"
+                        >
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1.5">Owner-Zugangscode</label>
+                        <input
+                            type="password"
+                            id="ownerCodeInput"
+                            required
+                            placeholder="Owner-Code eingeben..."
+                            class="w-full bg-discord-darker border border-white/10 focus:border-discord-gold rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none"
+                        >
+                    </div>
+                    <button type="submit" class="w-full py-3.5 rounded-xl bg-discord-gold hover:bg-discord-goldDark text-black font-extrabold text-sm transition shadow-lg">
+                        👑 Als Owner anmelden
+                    </button>
+                </form>
+            </div>
+
+            <!-- ANSICHT B: EINGELOGGT (Profil bearbeiten + Abmelden für beide Kontotypen) -->
+            <div id="loggedInView" class="hidden p-6 space-y-5 max-h-[82vh] overflow-y-auto">
+                <!-- Rollen- & Statuskarte -->
+                <div class="flex items-center justify-between gap-3 p-4 rounded-2xl bg-discord-darker border border-white/10">
+                    <div class="flex items-center gap-3 min-w-0">
+                        <div id="profilePreviewAvatar" class="w-14 h-14 rounded-2xl bg-discord-card border-2 border-discord-gold/50 flex items-center justify-center text-2xl overflow-hidden shrink-0">
+                            🦅
+                        </div>
+                        <div class="min-w-0">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <h4 id="profileHeaderName" class="font-extrabold text-white text-base truncate">Nutzer</h4>
+                                <span id="profileRoleBadge" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-discord-blurple/20 text-indigo-300">Mitglied</span>
+                            </div>
+                            <p id="profileHeaderEmail" class="text-xs text-gray-400 truncate mt-0.5">mail@beispiel.de</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profil bearbeiten Formular -->
+                <form id="profileForm" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1.5">Profilbild wählen (Emoji oder Bild-Upload)</label>
+                        <div class="flex flex-wrap items-center gap-2 mb-2.5" id="emojiPicker">
+                            <button type="button" data-emoji="🦅" class="emoji-choice w-9 h-9 rounded-xl bg-discord-card hover:bg-discord-hover text-lg flex items-center justify-center border border-white/10">🦅</button>
+                            <button type="button" data-emoji="👑" class="emoji-choice w-9 h-9 rounded-xl bg-discord-card hover:bg-discord-hover text-lg flex items-center justify-center border border-white/10">👑</button>
+                            <button type="button" data-emoji="🎮" class="emoji-choice w-9 h-9 rounded-xl bg-discord-card hover:bg-discord-hover text-lg flex items-center justify-center border border-white/10">🎮</button>
+                            <button type="button" data-emoji="🔥" class="emoji-choice w-9 h-9 rounded-xl bg-discord-card hover:bg-discord-hover text-lg flex items-center justify-center border border-white/10">🔥</button>
+                            <button type="button" data-emoji="⚡" class="emoji-choice w-9 h-9 rounded-xl bg-discord-card hover:bg-discord-hover text-lg flex items-center justify-center border border-white/10">⚡</button>
+                            <button type="button" data-emoji="🛡️" class="emoji-choice w-9 h-9 rounded-xl bg-discord-card hover:bg-discord-hover text-lg flex items-center justify-center border border-white/10">🛡️</button>
+                            <label class="px-3 h-9 rounded-xl bg-discord-card hover:bg-discord-hover text-xs font-semibold text-gray-200 flex items-center gap-1.5 cursor-pointer border border-white/10">
+                                <span>📷 Bild</span>
+                                <input type="file" id="avatarUploadInput" accept="image/*" class="hidden">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1.5">Spitzname</label>
+                        <input
+                            type="text"
+                            id="profileNicknameInput"
+                            required
+                            maxlength="24"
+                            class="w-full bg-discord-darker border border-white/10 focus:border-discord-gold rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none"
+                        >
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1.5">Profilbeschreibung</label>
+                        <textarea
+                            id="profileBioInput"
+                            rows="2"
+                            maxlength="140"
+                            placeholder="Erzähle etwas über dich..."
+                            class="w-full bg-discord-darker border border-white/10 focus:border-discord-gold rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none resize-none"
+                        ></textarea>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-2.5 pt-1">
+                        <button type="submit" class="flex-1 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition">
+                            💾 Profil speichern
+                        </button>
+                        <button type="button" onclick="goToChatFromModal()" class="flex-1 py-3 rounded-xl bg-discord-blurple hover:bg-discord-blurpleHover text-white font-bold text-sm transition">
+                            💬 Zum Live-Chat
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Abmelden-Option (Für beide Konten: Normal & Owner) -->
+                <div class="pt-4 border-t border-white/10 flex items-center justify-between gap-3">
+                    <span class="text-xs text-gray-400">Sitzung beenden oder Konto wechseln:</span>
+                    <button
+                        type="button"
+                        id="logoutBtn"
+                        onclick="logoutUser()"
+                        class="px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs sm:text-sm transition flex items-center gap-2 shadow-md"
+                    >
+                        <span>🚪</span> Abmelden
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TIMEOUT AUSWAHL MODAL (Für Owner) -->
+    <div id="timeoutModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
+        <div class="bg-discord-dark border border-discord-gold/40 rounded-3xl w-full max-w-md p-6 space-y-4 shadow-2xl">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-extrabold text-white flex items-center gap-2"><span>⏳</span> Nutzer timeouten</h3>
+                <button onclick="closeTimeoutModal()" class="w-8 h-8 rounded-lg bg-discord-card hover:bg-discord-hover text-gray-300 flex items-center justify-center font-bold">✕</button>
+            </div>
+            <p class="text-sm text-gray-300">
+                Wie lange möchtest du <strong id="timeoutTargetName" class="text-discord-gold">Nutzer</strong> in den Timeout versetzen?
+            </p>
+            <div class="grid grid-cols-3 gap-2.5">
+                <button type="button" onclick="confirmTimeout(1)" class="py-2.5 px-3 rounded-xl bg-discord-card hover:bg-discord-hover border border-white/10 text-sm font-bold text-white transition">1 Min.</button>
+                <button type="button" onclick="confirmTimeout(5)" class="py-2.5 px-3 rounded-xl bg-discord-gold/20 hover:bg-discord-gold/30 border border-discord-gold/50 text-sm font-bold text-discord-gold transition">5 Min.</button>
+                <button type="button" onclick="confirmTimeout(15)" class="py-2.5 px-3 rounded-xl bg-discord-card hover:bg-discord-hover border border-white/10 text-sm font-bold text-white transition">15 Min.</button>
+            </div>
+            <div class="flex justify-end pt-2">
+                <button type="button" onclick="closeTimeoutModal()" class="px-4 py-2 rounded-xl bg-discord-darker text-gray-400 hover:text-white text-xs font-semibold">Abbrechen</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Diagnose: zeigt JavaScript-Fehler sichtbar am oberen Rand an
+        (function () {
+            function show(msg) {
+                var el = document.getElementById("__errBanner");
+                if (!el) {
+                    el = document.createElement("div");
+                    el.id = "__errBanner";
+                    el.style.cssText = "position:fixed;top:0;left:0;right:0;z-index:99999;background:#b91c1c;color:#fff;font:13px/1.4 Arial,sans-serif;padding:8px 12px;white-space:pre-wrap";
+                    document.addEventListener("DOMContentLoaded", function () { document.body.appendChild(el); });
+                    if (document.body) document.body.appendChild(el);
+                }
+                el.textContent = "Fehler: " + msg;
+            }
+            window.addEventListener("error", function (e) { show(e.message + (e.lineno ? " (Zeile " + e.lineno + ")" : "")); });
+            window.addEventListener("unhandledrejection", function (e) { show(String(e.reason && e.reason.message || e.reason)); });
+        })();
+    </script>
+    <script>
+        // ==========================================
+        // 1. EAGLORTV BRANDING LOGO (Original-Emblem)
+        // ==========================================
+        const EAGLORTV_LOGO_DATA = "data:image/svg+xml;utf8," + encodeURIComponent(
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">' +
+                '<defs>' +
+                    '<linearGradient id="shieldBg" x1="0%" y1="0%" x2="100%" y2="100%">' +
+                        '<stop offset="0%" stop-color="#1d2230"/>' +
+                        '<stop offset="100%" stop-color="#0d1017"/>' +
+                    '</linearGradient>' +
+                    '<linearGradient id="goldRim" x1="0%" y1="0%" x2="100%" y2="100%">' +
+                        '<stop offset="0%" stop-color="#ffe066"/>' +
+                        '<stop offset="50%" stop-color="#f5b041"/>' +
+                        '<stop offset="100%" stop-color="#b9770e"/>' +
+                    '</linearGradient>' +
+                    '<linearGradient id="eagleWing" x1="0%" y1="0%" x2="0%" y2="100%">' +
+                        '<stop offset="0%" stop-color="#ffffff"/>' +
+                        '<stop offset="100%" stop-color="#cbd5e1"/>' +
+                    '</linearGradient>' +
+                '</defs>' +
+                '<path d="M120 12 L212 48 L202 146 C196 188 158 214 120 228 C82 214 44 188 38 146 L28 48 Z" fill="url(#shieldBg)" stroke="url(#goldRim)" stroke-width="8"/>' +
+                '<path d="M48 96 C72 82 96 90 120 108 C144 90 168 82 192 96 C178 118 158 128 138 130 L120 156 L102 130 C82 128 62 118 48 96 Z" fill="url(#eagleWing)"/>' +
+                '<path d="M104 88 L120 62 L136 88 L120 98 Z" fill="url(#goldRim)"/>' +
+                '<polygon points="108,58 114,48 120,56 126,48 132,58" fill="#ffe066"/>' +
+                '<rect x="44" y="162" width="152" height="30" rx="6" fill="#111214" stroke="url(#goldRim)" stroke-width="3"/>' +
+                '<text x="120" y="182" text-anchor="middle" fill="#f5b041" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="18" letter-spacing="2.5">EAGLORTV</text>' +
+            '</svg>'
+        );
+
+        // ==========================================
+        // 2. ZUSTAND & LOCALSTORAGE KONFIGURATION
+        // ==========================================
+        const OWNER_SECRET_CODE = "6790";
+        const STORAGE_USER_KEY = "eaglortv_user_v3";
+        const STORAGE_MESSAGES_KEY = "eaglortv_messages_v3";
+        const STORAGE_TIMEOUTS_KEY = "eaglortv_timeouts_v3";
+
+        // ==========================================
+        // ECHTZEIT-SYNC (Firebase Realtime Database, REST)
+        // Trage hier deine Datenbank-URL ein, z.B.
+        // "https://dein-projekt-default-rtdb.europe-west1.firebasedatabase.app"
+        // ==========================================
+        const FIREBASE_DB_URL = "https://chat-server-d4ec4-default-rtdb.europe-west1.firebasedatabase.app";
+        const SYNC_INTERVAL_MS = 2000;
+
+        const remoteEnabled = () => !!FIREBASE_DB_URL;
+        const encKey = (s) => String(s).replace(/[.#$\[\]\/]/g, "_");
+
+        async function remoteRequest(method, path, body) {
+            if (!remoteEnabled()) return null;
+            try {
+                const res = await fetch(FIREBASE_DB_URL.replace(/\/$/, "") + "/" + path + ".json", {
+                    method: method,
+                    headers: body !== undefined ? { "Content-Type": "application/json" } : undefined,
+                    body: body !== undefined ? JSON.stringify(body) : undefined
+                });
+                if (!res.ok) throw new Error("HTTP " + res.status);
+                return await res.json();
+            } catch (e) {
+                console.warn("Sync-Fehler:", e);
+                if (Date.now() - (window.__lastSyncToast || 0) > 15000) {
+                    window.__lastSyncToast = Date.now();
+                    const hint = String(e.message).includes("401") || String(e.message).includes("403")
+                        ? " (Firebase-Regeln nicht veröffentlicht?)"
+                        : "";
+                    showToast("Chat-Server nicht erreichbar: " + e.message + hint, "error");
+                }
+                return undefined;
+            }
+        }
+
+        let lastSyncSnapshot = "";
+        async function syncFromRemote() {
+            if (!remoteEnabled()) return;
+            const data = await remoteRequest("GET", "chat");
+            if (data === undefined) return; // Netzwerkfehler -> nichts überschreiben
+
+            const remoteMsgs = (data && data.messages) || {};
+            const remoteTimeouts = (data && data.timeouts) || {};
+
+            // Erststart: Datenbank ist leer -> Willkommensnachrichten hochladen
+            if (!data) {
+                Object.keys(DEFAULT_MESSAGES).forEach(ch => {
+                    DEFAULT_MESSAGES[ch].forEach(m => remoteRequest("PUT", "chat/messages/" + ch + "/" + m.id, m));
+                });
+                return;
+            }
+
+            const newState = {};
+            Object.keys(CHANNEL_META).forEach(ch => {
+                newState[ch] = Object.values(remoteMsgs[ch] || {}).sort((a, b) => a.timestamp - b.timestamp);
+            });
+            const newTimeouts = {};
+            Object.values(remoteTimeouts).forEach(t => { newTimeouts[t.email] = t; });
+
+            const snapshot = JSON.stringify([newState, newTimeouts]);
+            if (snapshot === lastSyncSnapshot) return;
+            lastSyncSnapshot = snapshot;
+
+            messagesState = newState;
+            timeoutsState = newTimeouts;
+            saveMessages();
+            saveTimeouts();
+            renderChatMessages();
+            renderTimeoutsList();
+        }
+
+        const CHANNEL_META = {
+            "announcements": {
+                title: "# announcements",
+                desc: "Official English announcements from the EaglorTV Owner.",
+                ownerOnly: true
+            },
+            "general-chat": {
+                title: "# general-chat",
+                desc: "Der Haupt-Chat für die EaglorTV-Community.",
+                ownerOnly: false
+            },
+            "help-chat": {
+                title: "# help-chat",
+                desc: "Fragen & Hilfe rund um den Server, Events und Rollen.",
+                ownerOnly: false
+            }
+        };
+
+        const DEFAULT_MESSAGES = {
+            "announcements": [
+                {
+                    id: "msg-ann-1",
+                    authorEmail: "owner@eaglortv.de",
+                    authorName: "EaglorTV",
+                    authorRole: "owner",
+                    avatarType: "emoji",
+                    avatarValue: "👑",
+                    text: "Welcome to the official EaglorTV Community! Watch this channel for stream schedules, tournaments, and server updates.",
+                    timestamp: Date.now() - 3600000 * 5
+                }
+            ],
+            "general-chat": [
+                {
+                    id: "msg-gen-1",
+                    authorEmail: "owner@eaglortv.de",
+                    authorName: "EaglorTV",
+                    authorRole: "owner",
+                    avatarType: "emoji",
+                    avatarValue: "👑",
+                    text: "Willkommen im #general-chat! Schreibt gerne rein, was ihr aktuell zockt.",
+                    timestamp: Date.now() - 3600000 * 2
+                },
+                {
+                    id: "msg-gen-2",
+                    authorEmail: "alex@community.de",
+                    authorName: "Alex_Gaming",
+                    authorRole: "member",
+                    avatarType: "emoji",
+                    avatarValue: "🎮",
+                    text: "Hey zusammen! Freue mich schon auf den nächsten Livestream auf Twitch!",
+                    timestamp: Date.now() - 1800000
+                }
+            ],
+            "help-chat": [
+                {
+                    id: "msg-help-1",
+                    authorEmail: "moderator@eaglortv.de",
+                    authorName: "Lena_Mod",
+                    authorRole: "member",
+                    avatarType: "emoji",
+                    avatarValue: "🛡️",
+                    text: "Falls ihr Fragen zu den Kanälen oder eurem Profil habt, stellt sie einfach hier!",
+                    timestamp: Date.now() - 2400000
+                }
+            ]
+        };
+
+        let currentUser = null;
+        let currentPage = "start";
+        let activeChannel = "general-chat";
+        let messagesState = {};
+        let timeoutsState = {};
+        let pendingTimeoutTarget = null;
+        let selectedEmoji = "🦅";
+        let uploadedImageData = null;
+
+        // ==========================================
+        // 3. INITIALISIERUNG
+        // ==========================================
+        window.addEventListener("DOMContentLoaded", () => {
+            // Logos setzen
+            document.getElementById("mobileLogo").src = EAGLORTV_LOGO_DATA;
+            document.getElementById("sidebarLogo").src = EAGLORTV_LOGO_DATA;
+            document.getElementById("heroLogo").src = EAGLORTV_LOGO_DATA;
+
+            loadPersistedData();
+            setupEventListeners();
+            updateAuthUI();
+            renderChatMessages();
+
+            // Timer für laufende Timeouts jede Sekunde aktualisieren
+            setInterval(tickTimeouts, 1000);
+            if (remoteEnabled()) {
+                syncFromRemote();
+                setInterval(syncFromRemote, SYNC_INTERVAL_MS);
+            }
+        });
+
+        function loadPersistedData() {
+            try {
+                const savedUser = localStorage.getItem(STORAGE_USER_KEY);
+                if (savedUser) currentUser = JSON.parse(savedUser);
+            } catch (e) {
+                currentUser = null;
+            }
+
+            try {
+                const savedMsgs = localStorage.getItem(STORAGE_MESSAGES_KEY);
+                messagesState = savedMsgs ? JSON.parse(savedMsgs) : JSON.parse(JSON.stringify(DEFAULT_MESSAGES));
+            } catch (e) {
+                messagesState = JSON.parse(JSON.stringify(DEFAULT_MESSAGES));
+            }
+
+            try {
+                const savedTimeouts = localStorage.getItem(STORAGE_TIMEOUTS_KEY);
+                timeoutsState = savedTimeouts ? JSON.parse(savedTimeouts) : {};
+            } catch (e) {
+                timeoutsState = {};
+            }
+        }
+
+        function saveMessages() {
+            try {
+                localStorage.setItem(STORAGE_MESSAGES_KEY, JSON.stringify(messagesState));
+            } catch (e) {}
+        }
+
+        function saveTimeouts() {
+            try {
+                localStorage.setItem(STORAGE_TIMEOUTS_KEY, JSON.stringify(timeoutsState));
+            } catch (e) {}
+        }
+
+        function saveUser() {
+            try {
+                if (currentUser) {
+                    localStorage.setItem(STORAGE_USER_KEY, JSON.stringify(currentUser));
+                } else {
+                    localStorage.removeItem(STORAGE_USER_KEY);
+                }
+            } catch (e) {}
+        }
+
+        // ==========================================
+        // 4. NAVIGATION & SEITENWECHSEL
+        // ==========================================
+        function setupEventListeners() {
+            // Seiten-Navigation
+            document.querySelectorAll(".nav-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const targetPage = btn.getAttribute("data-page");
+                    switchPage(targetPage);
+                    closeMobileSidebar();
+                });
+            });
+
+            // Mobile Menü
+            const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+            const sidebarBackdrop = document.getElementById("sidebarBackdrop");
+            if (mobileMenuBtn) mobileMenuBtn.addEventListener("click", openMobileSidebar);
+            if (sidebarBackdrop) sidebarBackdrop.addEventListener("click", closeMobileSidebar);
+
+            // Kanal-Wechsel im Chat
+            document.querySelectorAll(".channel-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const channel = btn.getAttribute("data-channel");
+                    selectChannel(channel);
+                });
+            });
+
+            // Normaler Login Formular
+            document.getElementById("normalLoginForm").addEventListener("submit", (e) => {
+                e.preventDefault();
+                const email = document.getElementById("normalEmailInput").value.trim().toLowerCase();
+                const nickInput = document.getElementById("normalNicknameInput").value.trim();
+                if (!email) return;
+
+                const defaultName = nickInput || email.split("@")[0];
+                currentUser = {
+                    email: email,
+                    nickname: defaultName,
+                    role: "member",
+                    bio: "Mitglied der EaglorTV Community",
+                    avatarType: "emoji",
+                    avatarValue: "🦅"
+                };
+                saveUser();
+                updateAuthUI();
+                closeKontoModal();
+                showToast("Erfolgreich als Mitglied angemeldet!", "success");
+            });
+
+            // Owner Login Formular
+            document.getElementById("ownerLoginForm").addEventListener("submit", (e) => {
+                e.preventDefault();
+                const email = document.getElementById("ownerEmailInput").value.trim().toLowerCase();
+                const code = document.getElementById("ownerCodeInput").value.trim();
+
+                if (code !== OWNER_SECRET_CODE) {
+                    showToast("Ungültiger Owner-Zugangscode!", "error");
+                    return;
+                }
+
+                currentUser = {
+                    email: email || "owner@eaglortv.de",
+                    nickname: "EaglorTV",
+                    role: "owner",
+                    bio: "Offizieller Owner der EaglorTV Community",
+                    avatarType: "emoji",
+                    avatarValue: "👑"
+                };
+                document.getElementById("ownerCodeInput").value = "";
+                saveUser();
+                updateAuthUI();
+                closeKontoModal();
+                showToast("👑 Willkommen zurück, Owner!", "gold");
+            });
+
+            // Profil speichern
+            document.getElementById("profileForm").addEventListener("submit", (e) => {
+                e.preventDefault();
+                if (!currentUser) return;
+
+                const newNick = document.getElementById("profileNicknameInput").value.trim();
+                const newBio = document.getElementById("profileBioInput").value.trim();
+                if (newNick) currentUser.nickname = newNick;
+                currentUser.bio = newBio;
+
+                if (uploadedImageData) {
+                    currentUser.avatarType = "image";
+                    currentUser.avatarValue = uploadedImageData;
+                } else if (selectedEmoji) {
+                    currentUser.avatarType = "emoji";
+                    currentUser.avatarValue = selectedEmoji;
+                }
+
+                saveUser();
+                updateAuthUI();
+                renderChatMessages();
+                showToast("Profil erfolgreich aktualisiert!", "success");
+            });
+
+            // Emoji Auswahl
+            document.querySelectorAll(".emoji-choice").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    selectedEmoji = btn.getAttribute("data-emoji");
+                    uploadedImageData = null;
+                    updateProfilePreviewAvatar("emoji", selectedEmoji);
+                });
+            });
+
+            // Bild-Upload für Profilbild
+            document.getElementById("avatarUploadInput").addEventListener("change", (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    uploadedImageData = evt.target.result;
+                    updateProfilePreviewAvatar("image", uploadedImageData);
+                };
+                reader.readAsDataURL(file);
+            });
+
+            // Chat-Nachricht senden
+            document.getElementById("chatForm").addEventListener("submit", (e) => {
+                e.preventDefault();
+                sendMessage();
+            });
+        }
+
+        function openMobileSidebar() {
+            document.getElementById("sidebar").classList.remove("-translate-x-full");
+            document.getElementById("sidebarBackdrop").classList.remove("hidden");
+        }
+
+        function closeMobileSidebar() {
+            document.getElementById("sidebar").classList.add("-translate-x-full");
+            document.getElementById("sidebarBackdrop").classList.add("hidden");
+        }
+
+        function switchPage(pageId) {
+            if (pageId === "chat" && !currentUser) {
+                openKontoModal();
+                showToast("Bitte melde dich zuerst an, um den Chat zu nutzen.", "info");
+                return;
+            }
+
+            currentPage = pageId;
+            document.querySelectorAll(".page-section").forEach(sec => sec.classList.add("hidden"));
+            const target = document.getElementById("page-" + pageId);
+            if (target) target.classList.remove("hidden");
+
+            document.querySelectorAll(".nav-btn").forEach(btn => {
+                const btnPage = btn.getAttribute("data-page");
+                if (btnPage === "chat") return;
+                if (btnPage === pageId) {
+                    btn.classList.remove("text-gray-300", "hover:bg-discord-hover", "font-medium");
+                    btn.classList.add("bg-discord-blurple", "text-white", "font-semibold");
+                } else {
+                    btn.classList.remove("bg-discord-blurple", "text-white", "font-semibold");
+                    btn.classList.add("text-gray-300", "hover:bg-discord-hover", "font-medium");
+                }
+            });
+
+            if (pageId === "chat") {
+                selectChannel(activeChannel);
+            }
+        }
+
+        function goToChannel(channelName) {
+            activeChannel = channelName;
+            if (!currentUser) {
+                openKontoModal();
+                showToast("Melde dich an, um #" + channelName + " zu betreten.", "info");
+                return;
+            }
+            switchPage("chat");
+        }
+
+        function goToChatFromModal() {
+            closeKontoModal();
+            switchPage("chat");
+        }
+
+        // ==========================================
+        // 5. KONTO MODAL & AUTHENTIFIZIERUNG
+        // ==========================================
+        function openKontoModal() {
+            const modal = document.getElementById("kontoModal");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            updateAuthUI();
+        }
+
+        function closeKontoModal() {
+            const modal = document.getElementById("kontoModal");
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+        }
+
+        function switchLoginMode(mode) {
+            const normalBtn = document.getElementById("selectNormalLoginBtn");
+            const ownerBtn = document.getElementById("selectOwnerLoginBtn");
+            const normalForm = document.getElementById("normalLoginForm");
+            const ownerForm = document.getElementById("ownerLoginForm");
+
+            if (mode === "owner") {
+                ownerBtn.classList.remove("border-white/10", "bg-discord-card/60");
+                ownerBtn.classList.add("border-discord-gold", "bg-discord-gold/15");
+                normalBtn.classList.remove("border-discord-blurple", "bg-discord-blurple/15");
+                normalBtn.classList.add("border-white/10", "bg-discord-card/60");
+
+                normalForm.classList.add("hidden");
+                ownerForm.classList.remove("hidden");
+            } else {
+                normalBtn.classList.remove("border-white/10", "bg-discord-card/60");
+                normalBtn.classList.add("border-discord-blurple", "bg-discord-blurple/15");
+                ownerBtn.classList.remove("border-discord-gold", "bg-discord-gold/15");
+                ownerBtn.classList.add("border-white/10", "bg-discord-card/60");
+
+                ownerForm.classList.add("hidden");
+                normalForm.classList.remove("hidden");
+            }
+        }
+
+        function logoutUser() {
+            currentUser = null;
+            uploadedImageData = null;
+            saveUser();
+            updateAuthUI();
+            if (currentPage === "chat") {
+                switchPage("start");
+            }
+            closeKontoModal();
+            showToast("Du wurdest erfolgreich abgemeldet.", "info");
+        }
+
+        function updateAuthUI() {
+            const loggedOutView = document.getElementById("loggedOutView");
+            const loggedInView = document.getElementById("loggedInView");
+            const chatNavWrapper = document.getElementById("chatNavWrapper");
+            const sidebarUserStatus = document.getElementById("sidebarUserStatus");
+            const kontoFabAvatar = document.getElementById("kontoFabAvatar");
+            const kontoFabLabel = document.getElementById("kontoFabLabel");
+            const ownerModPanel = document.getElementById("ownerModPanel");
+            const chatRoleBadge = document.getElementById("chatRoleBadge");
+
+            if (!currentUser) {
+                loggedOutView.classList.remove("hidden");
+                loggedInView.classList.add("hidden");
+                chatNavWrapper.classList.add("hidden");
+                ownerModPanel.classList.add("hidden");
+
+                kontoFabAvatar.innerHTML = "👤";
+                kontoFabLabel.textContent = "Konto";
+
+                sidebarUserStatus.innerHTML =
+                    '<div class="w-9 h-9 rounded-full bg-discord-card flex items-center justify-center text-sm border border-white/10">👤</div>' +
+                    '<div class="min-w-0 flex-1">' +
+                        '<p class="text-xs font-semibold text-gray-300 truncate">Nicht angemeldet</p>' +
+                        '<p class="text-[11px] text-gray-500 truncate">Klicke unten rechts auf Konto</p>' +
+                    '</div>';
+                return;
+            }
+
+            // Eingeloggt
+            loggedOutView.classList.add("hidden");
+            loggedInView.classList.remove("hidden");
+            chatNavWrapper.classList.remove("hidden");
+
+            const isOwner = currentUser.role === "owner";
+
+            // FAB unten rechts aktualisieren
+            if (currentUser.avatarType === "image") {
+                kontoFabAvatar.innerHTML = '<img src="' + currentUser.avatarValue + '" alt="Avatar" class="w-6 h-6 rounded-full object-cover">';
+            } else {
+                kontoFabAvatar.textContent = currentUser.avatarValue || "🦅";
+            }
+            kontoFabLabel.textContent = currentUser.nickname;
+
+            // Sidebar Status aktualisieren
+            const avatarHtml = currentUser.avatarType === "image"
+                ? '<img src="' + currentUser.avatarValue + '" alt="Avatar" class="w-9 h-9 rounded-full object-cover border border-discord-gold/50">'
+                : '<div class="w-9 h-9 rounded-full bg-discord-card flex items-center justify-center text-base border border-discord-gold/40">' + (currentUser.avatarValue || "🦅") + '</div>';
+
+            sidebarUserStatus.innerHTML =
+                avatarHtml +
+                '<div class="min-w-0 flex-1">' +
+                    '<p class="text-xs font-bold text-white truncate">' + escapeHtml(currentUser.nickname) + '</p>' +
+                    '<p class="text-[11px] font-semibold ' + (isOwner ? 'text-discord-gold' : 'text-emerald-400') + ' truncate">' +
+                        (isOwner ? '👑 Owner' : '● Mitglied') +
+                    '</p>' +
+                '</div>';
+
+            // Profil-Modal füllen
+            document.getElementById("profileHeaderName").textContent = currentUser.nickname;
+            document.getElementById("profileHeaderEmail").textContent = currentUser.email;
+            document.getElementById("profileNicknameInput").value = currentUser.nickname;
+            document.getElementById("profileBioInput").value = currentUser.bio || "";
+            selectedEmoji = currentUser.avatarType === "emoji" ? currentUser.avatarValue : "🦅";
+            uploadedImageData = currentUser.avatarType === "image" ? currentUser.avatarValue : null;
+            updateProfilePreviewAvatar(currentUser.avatarType, currentUser.avatarValue);
+
+            const roleBadge = document.getElementById("profileRoleBadge");
+            if (isOwner) {
+                roleBadge.textContent = "👑 Owner";
+                roleBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-discord-gold/20 text-discord-gold border border-discord-gold/40";
+                ownerModPanel.classList.remove("hidden");
+                chatRoleBadge.textContent = "👑 Owner";
+                chatRoleBadge.className = "text-[11px] font-bold px-2 py-0.5 rounded-full bg-discord-gold/20 text-discord-gold";
+            } else {
+                roleBadge.textContent = "👤 Mitglied";
+                roleBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-discord-blurple/20 text-indigo-300";
+                ownerModPanel.classList.add("hidden");
+                chatRoleBadge.textContent = "Mitglied";
+                chatRoleBadge.className = "text-[11px] font-bold px-2 py-0.5 rounded-full bg-discord-card text-gray-300";
+            }
+
+            updateChatInputPermissions();
+            renderTimeoutsList();
+        }
+
+        function updateProfilePreviewAvatar(type, value) {
+            const preview = document.getElementById("profilePreviewAvatar");
+            if (type === "image" && value) {
+                preview.innerHTML = '<img src="' + value + '" alt="Vorschau" class="w-full h-full object-cover">';
+            } else {
+                preview.textContent = value || "🦅";
+            }
+        }
+
+        // ==========================================
+        // 6. CHAT KANÄLE, NACHRICHTEN & MODERATION
+        // ==========================================
+        function selectChannel(channelName) {
+            activeChannel = channelName;
+            const meta = CHANNEL_META[channelName] || CHANNEL_META["general-chat"];
+
+            document.getElementById("activeChannelTitle").textContent = meta.title;
+            document.getElementById("activeChannelDesc").textContent = meta.desc;
+
+            const tag = document.getElementById("activeChannelTag");
+            if (meta.ownerOnly) {
+                tag.classList.remove("hidden");
+            } else {
+                tag.classList.add("hidden");
+            }
+
+            document.querySelectorAll(".channel-btn").forEach(btn => {
+                if (btn.getAttribute("data-channel") === channelName) {
+                    btn.classList.add("bg-discord-hover", "text-white");
+                    btn.classList.remove("text-gray-300");
+                } else {
+                    btn.classList.remove("bg-discord-hover", "text-white");
+                    btn.classList.add("text-gray-300");
+                }
+            });
+
+            updateChatInputPermissions();
+            renderChatMessages();
+        }
+
+        function updateChatInputPermissions() {
+            const input = document.getElementById("chatInput");
+            const sendBtn = document.getElementById("chatSendBtn");
+            const lockedNotice = document.getElementById("announcementsLockedNotice");
+            const selfBanner = document.getElementById("selfTimeoutBanner");
+
+            if (!currentUser) return;
+
+            const isOwner = currentUser.role === "owner";
+            const meta = CHANNEL_META[activeChannel];
+            const activeTimeout = getUserTimeout(currentUser.email);
+
+            // Prüfen, ob Nutzer getimeoutet ist (Owner ist immun)
+            if (!isOwner && activeTimeout) {
+                selfBanner.classList.remove("hidden");
+                lockedNotice.classList.add("hidden");
+                input.disabled = true;
+                sendBtn.disabled = true;
+                input.placeholder = "Du bist aktuell im Timeout...";
+                return;
+            } else {
+                selfBanner.classList.add("hidden");
+            }
+
+            // Prüfen, ob #announcements für normale Mitglieder gesperrt ist
+            if (meta && meta.ownerOnly && !isOwner) {
+                lockedNotice.classList.remove("hidden");
+                input.disabled = true;
+                sendBtn.disabled = true;
+                input.placeholder = "Read-only channel (Owner announcements only)";
+            } else {
+                lockedNotice.classList.add("hidden");
+                input.disabled = false;
+                sendBtn.disabled = false;
+                input.placeholder = meta && meta.ownerOnly
+                    ? "Post an official English announcement..."
+                    : "Nachricht an #" + activeChannel + " senden...";
+            }
+        }
+
+        function sendMessage() {
+            if (!currentUser) return;
+            const input = document.getElementById("chatInput");
+            const text = input.value.trim();
+            if (!text) return;
+
+            const isOwner = currentUser.role === "owner";
+            const meta = CHANNEL_META[activeChannel];
+
+            if (meta && meta.ownerOnly && !isOwner) {
+                showToast("Only the Owner can post in #announcements.", "error");
+                return;
+            }
+
+            if (!isOwner && getUserTimeout(currentUser.email)) {
+                showToast("Du befindest dich noch im Timeout!", "error");
+                return;
+            }
+
+            if (!messagesState[activeChannel]) {
+                messagesState[activeChannel] = [];
+            }
+
+            const newMsg = {
+                id: "msg-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6),
+                authorEmail: currentUser.email,
+                authorName: currentUser.nickname,
+                authorRole: currentUser.role,
+                avatarType: currentUser.avatarType,
+                avatarValue: currentUser.avatarValue,
+                text: text,
+                timestamp: Date.now()
+            };
+            messagesState[activeChannel].push(newMsg);
+            remoteRequest("PUT", "chat/messages/" + activeChannel + "/" + newMsg.id, newMsg);
+
+            input.value = "";
+            saveMessages();
+            renderChatMessages();
+        }
+
+        function deleteMessage(messageId) {
+            if (!currentUser || currentUser.role !== "owner") return;
+            if (!messagesState[activeChannel]) return;
+
+            messagesState[activeChannel] = messagesState[activeChannel].filter(m => m.id !== messageId);
+            remoteRequest("DELETE", "chat/messages/" + activeChannel + "/" + messageId);
+            saveMessages();
+            renderChatMessages();
+            showToast("Nachricht vom Owner gelöscht.", "info");
+        }
+
+        function renderChatMessages() {
+            const container = document.getElementById("chatMessages");
+            if (!container) return;
+
+            const list = messagesState[activeChannel] || [];
+            const isViewerOwner = currentUser && currentUser.role === "owner";
+
+            if (list.length === 0) {
+                container.innerHTML =
+                    '<div class="text-center py-12 text-gray-400 text-sm">' +
+                        '<p class="text-2xl mb-2">💬</p>' +
+                        '<p>Noch keine Nachrichten in diesem Kanal.</p>' +
+                    '</div>';
+                return;
+            }
+
+            container.innerHTML = list.map(msg => {
+                const isMsgOwner = msg.authorRole === "owner";
+                const timeStr = new Date(msg.timestamp).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
+                const avatarHtml = msg.avatarType === "image"
+                    ? '<img src="' + msg.avatarValue + '" alt="Avatar" class="w-10 h-10 rounded-full object-cover shrink-0 border border-white/10">'
+                    : '<div class="w-10 h-10 rounded-full bg-discord-dark flex items-center justify-center text-lg shrink-0 border border-white/10">' + (msg.avatarValue || "🦅") + '</div>';
+
+                const userTimeout = getUserTimeout(msg.authorEmail);
+                const timeoutBadge = userTimeout
+                    ? '<span class="text-[10px] font-bold px-2 py-0.5 rounded bg-red-500/20 text-red-300 border border-red-500/30">⏳ Timeout</span>'
+                    : '';
+
+                // Owner-Moderations-Buttons (Löschen & Timeout)
+                let modButtons = "";
+                if (isViewerOwner) {
+                    const timeoutBtn = !isMsgOwner
+                        ? '<button type="button" onclick="openTimeoutModal(\'' + escapeAttr(msg.authorEmail) + '\', \'' + escapeAttr(msg.authorName) + '\')" class="px-2 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/30 text-amber-300 text-[11px] font-bold transition" title="Nutzer timeouten">⏳ Timeout</button>'
+                        : '';
+                    const deleteBtn =
+                        '<button type="button" onclick="deleteMessage(\'' + escapeAttr(msg.id) + '\')" class="px-2 py-1 rounded-lg bg-red-500/15 hover:bg-red-500/30 text-red-300 text-[11px] font-bold transition" title="Nachricht löschen">🗑️ Löschen</button>';
+
+                    modButtons = '<div class="flex items-center gap-1.5 opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition">' + timeoutBtn + deleteBtn + '</div>';
+                }
+
+                return (
+                    '<div class="group flex items-start gap-3.5 p-3 rounded-2xl hover:bg-discord-dark/50 transition ' + (isMsgOwner && activeChannel === "announcements" ? "bg-discord-gold/5 border border-discord-gold/25" : "") + '">' +
+                        avatarHtml +
+                        '<div class="flex-1 min-w-0">' +
+                            '<div class="flex items-center justify-between gap-2 flex-wrap">' +
+                                '<div class="flex items-center gap-2 flex-wrap">' +
+                                    '<span class="font-bold text-sm ' + (isMsgOwner ? "text-discord-gold" : "text-white") + '">' + escapeHtml(msg.authorName) + '</span>' +
+                                    (isMsgOwner ? '<span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-discord-gold/20 text-discord-gold border border-discord-gold/40">👑 OWNER</span>' : '') +
+                                    timeoutBadge +
+                                    '<span class="text-[11px] text-gray-500">' + timeStr + '</span>' +
+                                '</div>' +
+                                modButtons +
+                            '</div>' +
+                            '<p class="text-sm text-gray-200 mt-1 break-words leading-relaxed">' + escapeHtml(msg.text) + '</p>' +
+                        '</div>' +
+                    '</div>'
+                );
+            }).join("");
+
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // ==========================================
+        // 7. OWNER TIMEOUT SYSTEM
+        // ==========================================
+        function openTimeoutModal(email, name) {
+            if (!currentUser || currentUser.role !== "owner") return;
+            pendingTimeoutTarget = { email: email, name: name };
+            document.getElementById("timeoutTargetName").textContent = name;
+            const modal = document.getElementById("timeoutModal");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+        }
+
+        function closeTimeoutModal() {
+            pendingTimeoutTarget = null;
+            const modal = document.getElementById("timeoutModal");
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+        }
+
+        function confirmTimeout(minutes) {
+            if (!currentUser || currentUser.role !== "owner" || !pendingTimeoutTarget) return;
+            const until = Date.now() + minutes * 60 * 1000;
+            timeoutsState[pendingTimeoutTarget.email] = {
+                name: pendingTimeoutTarget.name,
+                email: pendingTimeoutTarget.email,
+                until: until
+            };
+            remoteRequest("PUT", "chat/timeouts/" + encKey(pendingTimeoutTarget.email), timeoutsState[pendingTimeoutTarget.email]);
+            saveTimeouts();
+            renderTimeoutsList();
+            renderChatMessages();
+            showToast(pendingTimeoutTarget.name + " wurde für " + minutes + " Min. getimeoutet.", "gold");
+            closeTimeoutModal();
+        }
+
+        function removeTimeout(email) {
+            if (!currentUser || currentUser.role !== "owner") return;
+            delete timeoutsState[email];
+            remoteRequest("DELETE", "chat/timeouts/" + encKey(email));
+            saveTimeouts();
+            renderTimeoutsList();
+            renderChatMessages();
+            showToast("Timeout aufgehoben.", "success");
+        }
+
+        function getUserTimeout(email) {
+            const entry = timeoutsState[email];
+            if (!entry) return null;
+            if (Date.now() >= entry.until) {
+                delete timeoutsState[email];
+                saveTimeouts();
+                return null;
+            }
+            return entry;
+        }
+
+        function tickTimeouts() {
+            let changed = false;
+            Object.keys(timeoutsState).forEach(email => {
+                if (Date.now() >= timeoutsState[email].until) {
+                    delete timeoutsState[email];
+                    changed = true;
+                }
+            });
+            if (changed) {
+                saveTimeouts();
+                renderTimeoutsList();
+                renderChatMessages();
+            }
+
+            if (currentUser && currentUser.role !== "owner") {
+                const active = getUserTimeout(currentUser.email);
+                const timerEl = document.getElementById("selfTimeoutTimer");
+                if (active && timerEl) {
+                    const remSec = Math.max(0, Math.ceil((active.until - Date.now()) / 1000));
+                    const mins = String(Math.floor(remSec / 60)).padStart(2, "0");
+                    const secs = String(remSec % 60).padStart(2, "0");
+                    timerEl.textContent = mins + ":" + secs;
+                }
+                updateChatInputPermissions();
+            }
+        }
+
+        function renderTimeoutsList() {
+            const listEl = document.getElementById("activeTimeoutsList");
+            const badgeEl = document.getElementById("timeoutCountBadge");
+            if (!listEl || !badgeEl) return;
+
+            const entries = Object.values(timeoutsState).filter(t => Date.now() < t.until);
+            badgeEl.textContent = entries.length + (entries.length === 1 ? " Timeout" : " Timeouts");
+
+            if (entries.length === 0) {
+                listEl.innerHTML = '<p class="text-gray-500 italic text-[11px]">Keine aktiven Timeouts.</p>';
+                return;
+            }
+
+            listEl.innerHTML = entries.map(entry => {
+                const remMin = Math.max(1, Math.ceil((entry.until - Date.now()) / 60000));
+                return (
+                    '<div class="flex items-center justify-between gap-2 bg-discord-darker px-2.5 py-1.5 rounded-lg border border-white/5">' +
+                        '<div class="min-w-0">' +
+                            '<p class="font-bold text-gray-200 truncate">' + escapeHtml(entry.name) + '</p>' +
+                            '<p class="text-[10px] text-red-300">noch ~' + remMin + ' Min.</p>' +
+                        '</div>' +
+                        '<button type="button" onclick="removeTimeout(\'' + escapeAttr(entry.email) + '\')" class="px-2 py-1 rounded bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-300 font-bold text-[10px] shrink-0">Aufheben</button>' +
+                    '</div>'
+                );
+            }).join("");
+        }
+
+        // ==========================================
+        // 8. HILFSFUNKTIONEN (TOAST & ESCAPING)
+        // ==========================================
+        function showToast(message, type) {
+            const container = document.getElementById("toastContainer");
+            const toast = document.createElement("div");
+
+            let colors = "bg-discord-card border-white/15 text-white";
+            if (type === "success") colors = "bg-emerald-950/95 border-emerald-500/50 text-emerald-100";
+            if (type === "error") colors = "bg-red-950/95 border-red-500/50 text-red-100";
+            if (type === "gold") colors = "bg-amber-950/95 border-discord-gold/60 text-amber-100";
+
+            toast.className = "pointer-events-auto px-4 py-3 rounded-2xl border shadow-2xl text-xs sm:text-sm font-semibold backdrop-blur-md transition-all duration-300 " + colors;
+            toast.textContent = message;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = "0";
+                toast.style.transform = "translateY(-8px)";
+                setTimeout(() => toast.remove(), 300);
+            }, 3400);
+        }
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function escapeAttr(str) {
+            return String(str)
+                .replace(/\\/g, "\\\\")
+                .replace(/'/g, "\\'")
+                .replace(/"/g, "&quot;");
+        }
+    </script>
+</body>
+</html>
